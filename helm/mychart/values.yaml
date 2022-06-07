@@ -1,0 +1,46 @@
+replicas: 1
+image:
+  repo: talhaasan/helmcharts
+  tag: 0.1.0
+  registry: index.docker.io
+imagePullSecrets: regcred
+limitsEnabled: true
+probeEnabled: false
+enabled: false
+rollingUpdate: true
+strategy:
+  rollingUpdate:
+    maxUnavailable: 25%
+    maxSurge: 25%
+resources:
+  limits:
+    memory: 250Mi
+    cpu: 250m
+  requests:
+    memory: 250Mi
+    cpu: 250m
+readinessProbe:
+  httpGet:
+    path: /api/actuator/info
+    port: 8080
+  initialDelaySeconds: 60
+  periodSeconds: 5
+  timeoutSeconds: 10
+  failureThreshold: 150
+  successThreshold: 1
+livenessProbe:
+  httpGet:
+    path: /api/actuator/health
+    port: 8080
+  initialDelaySeconds: 60
+  timeoutSeconds: 10
+  periodSeconds: 5
+  failureThreshold: 150
+  successThreshold: 1
+AllowedHosts: "*"
+MessageBroker:
+  RabbitMQ:
+    HostName: my-release-rabbitmq-headless 
+    UserName: admin
+    Password: secretpassword
+

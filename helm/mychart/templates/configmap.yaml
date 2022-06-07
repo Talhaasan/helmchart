@@ -1,0 +1,16 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: {{ .Release.Name }}-config
+# data:
+#   appsettings.json: |-
+#     {
+#       "MessageBroker": {
+#         "Provider": {{ .Values.MessageBroker.Provider | quote }},
+#         "RabbitMQ": {
+#           "HostName": {{ .Values.MessageBroker.RabbitMQ.HostName | quote }},
+#           "UserName": {{ .Values.MessageBroker.RabbitMQ.UserName | quote }},
+#           "Password": {{ .Values.MessageBroker.RabbitMQ.Password | quote }},
+#         }
+#       }
+#     }
